@@ -1,0 +1,8 @@
+{
+  "api_key": "my api key on openweathermap.org",
+  "location": "my location for openweathermap.org",
+  "wifi": {
+    "ssid": "my ssid",
+    "password": "my password"
+  }
+}
