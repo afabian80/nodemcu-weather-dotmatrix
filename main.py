@@ -3,6 +3,7 @@ from config import Config
 from wifi import Wifi, WifiConnectError
 from weather import Weather, WeatherUpdateError
 from time import sleep
+import machine
 
 
 def log_error(e):
@@ -15,8 +16,9 @@ def main():
     display = None
     wifi = None
     weather = None
+    wifi_errors = 0
     try:
-        display = Display(cs_pin=15, brightness=4)
+        display = Display(cs_pin=15, brightness=1)
         config = Config(file_name='config.json')
         weather = Weather(api_key=config.api_key, location=config.location)
         wifi = Wifi(config.wifi_ssid, config.wifi_password)
@@ -35,7 +37,6 @@ def main():
         log_error(e)
         display.show_text('E 09')
         return
-
     while True:
         try:
             if not wifi.is_connected():
@@ -43,20 +44,26 @@ def main():
             weather.update()
             display.show_number(weather.temperature)
             sleep(60)
-            display.show_text('UP  ')
-            sleep(1)
+            # display.show_text('....')
+            # sleep(1)
         except WifiConnectError as e:
             print(e)
-            display.show_text('E 11')
+            wifi_errors += 1
+            display.show_text('wifi')
+            log_error(wifi_errors)
+            if wifi_errors > 5:
+                log_error("resetting")
+                sleep(1)
+                machine.reset()
             sleep(10)
         except WeatherUpdateError as e:
             print(e)
-            display.show_text('E 12')
+            display.show_text('svc')
             sleep(10)
         except Exception as e:
             print(e)
             log_error(e)
-            display.show_text('E 19')
+            display.show_text('shit')
             break
 
 

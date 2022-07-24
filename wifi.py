@@ -18,7 +18,7 @@ class Wifi:
         retry = 0
         while not self.wlan.isconnected() and retry < 30:
             retry += 1
-            sleep(1)
+            sleep(5)
         if not self.wlan.isconnected():
             raise WifiConnectError()
 
