@@ -1,2 +1,5 @@
 .vscode
 webrepl_cfg.py
+.venv
+config.json
+error.log
