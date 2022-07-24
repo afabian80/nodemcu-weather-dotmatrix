@@ -43,9 +43,9 @@ def main():
                 wifi.connect()
             weather.update()
             display.show_number(weather.temperature)
-            sleep(60)
-            # display.show_text('....')
-            # sleep(1)
+            sleep(300)
+            display.show_text('  ..')
+            sleep(1)
         except WifiConnectError as e:
             print(e)
             wifi_errors += 1
@@ -58,7 +58,7 @@ def main():
             sleep(10)
         except WeatherUpdateError as e:
             print(e)
-            display.show_text('svc')
+            display.show_text('nope')
             sleep(10)
         except Exception as e:
             print(e)

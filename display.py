@@ -11,7 +11,7 @@ class Display:
         self.display = Max7219(width=32, height=8, spi=spi, cs=Pin(cs_pin))
         self.display.brightness(brightness)
         sleep_ms(100)
-        self.show_text('INIT')
+        self.show_text('init')
         sleep_ms(500)
 
     def show_text(self, text):
